@@ -15,24 +15,26 @@ public class HelloWorld extends Application {
         primaryStage.setTitle("Hello world");
         Group root = new Group();
         Pane pane = new Pane(root);
-        Camera camera = new Camera(0,0);
+        Camera camera = new Camera(400,0);
         GameScene theScene = new GameScene(pane, 600, 400,camera);
+        theScene.render();
         primaryStage.setScene(theScene);
 
         //Display Desert
-        Image spriteSheet = new Image("file:img/desert.png");
-        ImageView sprite = new ImageView(spriteSheet);
-        //Update root
-        root.getChildren().add(sprite);
+        //Image spriteSheet = new Image("file:img/desert.png");
+        //ImageView sprite = new ImageView(spriteSheet);
+        //update settings
+        //pane.getChildren().add(sprite);
 
         //Display Hero
         Image spriteSheet2 = new Image("file:img/heros.png");
         ImageView sprite2 = new ImageView(spriteSheet2);
+        //Rectangle2D(double minX, double minY, double width, double height)
         sprite2.setViewport(new Rectangle2D(20,0,65,100));
         sprite2.setX(200);
         sprite2.setY(300);
         //Update root
-        root.getChildren().add(sprite2);
+        pane.getChildren().add(sprite2);
 
         primaryStage.show();
     }
