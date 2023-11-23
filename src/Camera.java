@@ -4,8 +4,8 @@
  */
 public class Camera {
     // Two attributes
-    private int x;
-    private int y;
+    private double x;
+    private double y;
 
     /**
      * Constructs a new Camera object with the specified x and y coordinates.
@@ -13,7 +13,7 @@ public class Camera {
      * @param x The x-coordinate of the camera.
      * @param y The y-coordinate of the camera.
      */
-    public Camera(int x, int y) {
+    public Camera(double x, double y) {
         this.x = x;
         this.y = y;
     }
@@ -23,7 +23,7 @@ public class Camera {
      *
      * @return The x-coordinate of the camera.
      */
-    public int getX() {
+    public double getX() {
         return x;
     }
 
@@ -32,7 +32,7 @@ public class Camera {
      *
      * @return The y-coordinate of the camera.
      */
-    public int getY() {
+    public double getY() {
         return y;
     }
 
