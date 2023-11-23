@@ -20,7 +20,7 @@ public class HelloWorld extends Application {
         primaryStage.setScene(theScene);
 
         //Display Desert
-        Image spriteSheet = new Image("file:img/desert.png",true);
+        Image spriteSheet = new Image("file:img/desert.png");
         ImageView sprite = new ImageView(spriteSheet);
         //Update root
         root.getChildren().add(sprite);
