@@ -12,6 +12,7 @@ public class GameScene extends Scene {
     private StaticThing backgroundLeft;
     private StaticThing backgroundRight;
     private StaticThing numberOfLives;
+    private Hero theHero;
     //variables for Left and Right
     private double backgroundLenght = 600;
     private double backgroundHeight = 400;
@@ -20,18 +21,30 @@ public class GameScene extends Scene {
     private double heartsBoxLenght = 300;
     private double heartsBoxHeight = 60;
     private String heartsPath = "file:img/hearts.png";
+    //variables for Hero
+    private double heroX = 100;
+    private double heroY = 250;
+    private int attitude = 0;
+    private String heroPath = "file:img/heros.png";
 
     //constructor
     public GameScene(Pane parent, double gameSceneLength, double gameSceneHeight, Camera gameCamera) {
         super(parent, gameSceneLength, gameSceneHeight);
         this.gameCamera = gameCamera;
+
         //instance of 2 StaticThings to display background (left and right) on the Scene
         this.backgroundLeft = new StaticThing(backgroundLenght,backgroundHeight,bckgroundPath);
         this.backgroundRight = new StaticThing(backgroundLenght,backgroundHeight,bckgroundPath);
+
         //StaticThing instance to display HP hearts on the Scene
         this.numberOfLives = new StaticThing(heartsBoxLenght,heartsBoxHeight,heartsPath);
+
+        //AnimatedThing instance to display hero
+        this.theHero = new Hero(heroX,heroY,attitude,heroPath);
+
         //update image views
-        parent.getChildren().addAll(backgroundLeft.getImageView(), backgroundRight.getImageView(), numberOfLives.getImageView());
+        parent.getChildren().addAll(backgroundLeft.getImageView(), backgroundRight.getImageView());
+        parent.getChildren().addAll(numberOfLives.getImageView(), theHero.getspriteSheetImageView());
     }
 
     //Getter
