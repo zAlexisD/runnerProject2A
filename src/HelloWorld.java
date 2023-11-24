@@ -18,6 +18,7 @@ public class HelloWorld extends Application {
         Camera camera = new Camera(400,0);
         GameScene theScene = new GameScene(pane, 600, 400,camera);
         theScene.render();
+        theScene.updateHearts(0);
         primaryStage.setScene(theScene);
 
         //Display Desert
