@@ -23,10 +23,10 @@ public class GameScene extends Scene {
     private double heartsBoxHeight = 60;
     private String heartsPath = "file:img/hearts.png";
     //variables for Hero
-    private double heroX = 100;
-    private double heroY = 250;
+    private double heroX = 50;
+    private double heroY = 310;
     private int attitude = 0;
-    private String heroPath = "file:img/heros.png";
+    private String heroPath = "file:img/cuphead_spritesheet.png";
 
     //constructor
     public GameScene(Pane parent, double gameSceneLength, double gameSceneHeight, Camera gameCamera) {
@@ -60,8 +60,8 @@ public class GameScene extends Scene {
     AnimationTimer timer = new AnimationTimer() {
         @Override
         public void handle(long time) {
-            theHero.animatedThingUpdate(time);
-            gameCamera.cameraUpdate(time);
+            theHero.updateHero(time);
+            gameCamera.updateCamera(time);
             gameSceneUpdate(time);
         }
     };
@@ -85,8 +85,7 @@ public class GameScene extends Scene {
     }
 
     //Update method with AnimatedTimer
-    void gameSceneUpdate(long timer){
-
+    void gameSceneUpdate(long time){
     }
 }
 
