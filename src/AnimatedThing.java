@@ -11,13 +11,13 @@ abstract class AnimatedThing {
     private int attitude;
     //variables needed to display animation
     private int index;
-    private int indexMax = 8;
-    private double frameDuration = 1/30;    //30 FPS
-    private double frameOffset = 2;
-    private double characterFrameX = 375;
-    private double characterFrameY = 248;
-    private double characterBoxLenght = 48.5;
-    private double CharacterBoxHeigth = 47;
+    private int indexMax = 6;
+    private double frameDuration = 0.1;    //30 FPS
+    private double frameOffset;
+    private double characterFrameX = 5;
+    private double characterFrameY = 168;
+    private double characterBoxLenght = 47.2;
+    private double CharacterBoxHeigth = 50;
 
     public AnimatedThing(double x, double y, int attitude,String fileName) {
         Image Sheet = new Image(fileName);
@@ -32,11 +32,11 @@ abstract class AnimatedThing {
     public ImageView getspriteSheetImageView() {return spriteSheetImageView;}
 
     //Update method with AnimatedTimer
-    int animatedThingUpdate(long time){
+    public int animatedThingUpdate(long time){
         //Calculate duration in seconds
         double timeSeconds = time / 1000000000.0;
         //Update index by duration
-        index = (int) ((timeSeconds + frameOffset) / frameDuration) % indexMax;
+        index = (int) (timeSeconds / frameDuration) % indexMax;
         return index;
     }
 }

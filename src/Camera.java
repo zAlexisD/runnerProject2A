@@ -47,7 +47,7 @@ public class Camera {
     }
 
     //Update method with AnimatedTimer
-    void updateCamera(long time){
+    public void updateCamera(long time){
         //empty method for now
     }
 }

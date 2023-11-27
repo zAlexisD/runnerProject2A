@@ -26,15 +26,14 @@ public class GameScene extends Scene {
     private double heroX = 50;
     private double heroY = 310;
     private int attitude = 0;
-    private String heroPath = "file:img/cuphead_spritesheet.png";
+    private String heroPath = "file:img/yamato.png";
 
     //constructor
     public GameScene(Pane parent, double gameSceneLength, double gameSceneHeight, Camera gameCamera) {
         super(parent, gameSceneLength, gameSceneHeight);
         this.gameCamera = gameCamera;
 
-        //start timer
-        timer.start();
+
 
         //instance of 2 StaticThings to display background (left and right) on the Scene
         this.backgroundLeft = new StaticThing(backgroundLenght,backgroundHeight,bckgroundPath);
@@ -56,15 +55,7 @@ public class GameScene extends Scene {
         return gameCamera;
     }
 
-    //Set timer for Animation
-    AnimationTimer timer = new AnimationTimer() {
-        @Override
-        public void handle(long time) {
-            theHero.updateHero(time);
-            gameCamera.updateCamera(time);
-            gameSceneUpdate(time);
-        }
-    };
+
 
     //Update method for HP
     public void updateHearts(int lostHP){
@@ -85,7 +76,9 @@ public class GameScene extends Scene {
     }
 
     //Update method with AnimatedTimer
-    void gameSceneUpdate(long time){
+    public void gameSceneUpdate(long time){
+        theHero.updateHero(time);
+        gameCamera.updateCamera(time);
     }
 }
 

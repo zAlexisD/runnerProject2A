@@ -12,15 +12,15 @@ public class Hero extends AnimatedThing{
     //jump method
 
     //run + shoot method
-    void runShootHero(int index){
-        this.getspriteSheetImageView().setViewport(new Rectangle2D(375 + index * 48.5,248,48,47 ));
+    public void runShootHero(int index){
+        this.getspriteSheetImageView().setViewport(new Rectangle2D(5 + index * 47.2,168,47.2,50 ));
     }
 
     //jump + shoot method
 
     //update
-    void updateHero(long time){
-        int index = super.animatedThingUpdate(time);
+    public void updateHero(long time){
+        int index = animatedThingUpdate(time);
         runShootHero(index);
     }
 }

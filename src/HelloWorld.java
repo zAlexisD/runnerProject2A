@@ -1,3 +1,4 @@
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
@@ -38,6 +39,17 @@ public class HelloWorld extends Application {
 //        pane.getChildren().add(sprite2);
 
         primaryStage.show();
+
+        //Set timer for Animation
+        AnimationTimer timer = new AnimationTimer() {
+            @Override
+            public void handle(long time) {
+
+                theScene.gameSceneUpdate(time);
+            }
+        };
+        //start timer
+        timer.start();
     }
 
     public static void main(String[] args){
