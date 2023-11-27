@@ -30,4 +30,9 @@ abstract class AnimatedThing {
     }
     //getter
     public ImageView getspriteSheetImageView() {return spriteSheetImageView;}
+
+    //Update method with AnimatedTimer
+    void animatedThingUpdate(long timer){
+
+    }
 }

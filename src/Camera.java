@@ -45,4 +45,9 @@ public class Camera {
     public String toString() {
         return this.x + "," + this.y;
     }
+
+    //Update method with AnimatedTimer
+    void cameraUpdate(long timer){
+        //empty method for now
+    }
 }

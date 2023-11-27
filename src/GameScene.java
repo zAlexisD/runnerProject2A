@@ -1,3 +1,4 @@
+import javafx.animation.AnimationTimer;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -32,6 +33,9 @@ public class GameScene extends Scene {
         super(parent, gameSceneLength, gameSceneHeight);
         this.gameCamera = gameCamera;
 
+        //start timer
+        timer.start();
+
         //instance of 2 StaticThings to display background (left and right) on the Scene
         this.backgroundLeft = new StaticThing(backgroundLenght,backgroundHeight,bckgroundPath);
         this.backgroundRight = new StaticThing(backgroundLenght,backgroundHeight,bckgroundPath);
@@ -52,6 +56,16 @@ public class GameScene extends Scene {
         return gameCamera;
     }
 
+    //Set timer for Animation
+    AnimationTimer timer = new AnimationTimer() {
+        @Override
+        public void handle(long time) {
+            theHero.animatedThingUpdate(time);
+            gameCamera.cameraUpdate(time);
+            gameSceneUpdate(time);
+        }
+    };
+
     //Update method for HP
     public void updateHearts(int lostHP){
         if (lostHP>=5){lostHP=4;}
@@ -67,6 +81,11 @@ public class GameScene extends Scene {
 
         this.backgroundRight.getImageView().setX(getWidth()/2-newOriginX);
         this.backgroundLeft.getImageView().setX(-getWidth()/2-newOriginX);
+
+    }
+
+    //Update method with AnimatedTimer
+    void gameSceneUpdate(long timer){
 
     }
 }
