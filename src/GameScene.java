@@ -24,9 +24,9 @@ public class GameScene extends Scene {
     private String heartsPath = "file:img/hearts.png";
     //variables for Hero
     private double heroX = 50;
-    private double heroY = 310;
+    private double heroY = 260;
     private int attitude = 0;
-    private String heroPath = "file:img/yamato.png";
+    private String heroPath = "file:img/padoru.png";
 
     //constructor
     public GameScene(Pane parent, double gameSceneLength, double gameSceneHeight, Camera gameCamera) {
@@ -62,6 +62,8 @@ public class GameScene extends Scene {
         if (lostHP>=5){lostHP=4;}
         this.numberOfLives.getImageView().setViewport(new Rectangle2D(0,60*lostHP,300,60));
 
+        this.numberOfLives.getImageView().setFitWidth(200);
+        this.numberOfLives.getImageView().setFitHeight(40);
         this.numberOfLives.getImageView().setX(0);
         this.numberOfLives.getImageView().setY(0);
     }

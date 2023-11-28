@@ -11,22 +11,30 @@ abstract class AnimatedThing {
     private int attitude;
     //variables needed to display animation
     private int index;
-    private int indexMax = 6;
-    private double frameDuration = 0.1;    //30 FPS
+    private int indexMax = 4;
+    private double frameDuration = 0.1;
     private double frameOffset;
-    private double characterFrameX = 5;
-    private double characterFrameY = 168;
-    private double characterBoxLenght = 47.2;
-    private double CharacterBoxHeigth = 50;
+    private double characterFrameX = 0;
+    private double characterFrameY = 0;
+    private double characterBoxLenght = 381;
+    private double CharacterBoxHeigth = 381;
+    private double characterSizeX = 94.4;
+    private double characterSizeY = 100;
 
     public AnimatedThing(double x, double y, int attitude,String fileName) {
         Image Sheet = new Image(fileName);
         this.spriteSheetImageView = new ImageView(Sheet);
+        //First frame
         spriteSheetImageView.setViewport(new Rectangle2D(characterFrameX,characterFrameY,characterBoxLenght,CharacterBoxHeigth));
+        //Set starting position
         spriteSheetImageView.setX(x);
         spriteSheetImageView.setY(y);
+        //Adapt character size on screen
+        spriteSheetImageView.setFitWidth(characterSizeX);
+        spriteSheetImageView.setFitHeight(characterSizeY);
 
         this.attitude = attitude;
+
     }
     //getter
     public ImageView getspriteSheetImageView() {return spriteSheetImageView;}

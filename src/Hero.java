@@ -8,19 +8,20 @@ public class Hero extends AnimatedThing{
     //stand method
 
     //run method
-
+    public void runHero(int index){
+        this.getspriteSheetImageView().setViewport(new Rectangle2D( index * 381,0,370,381 ));
+    }
     //jump method
 
     //run + shoot method
     public void runShootHero(int index){
-        this.getspriteSheetImageView().setViewport(new Rectangle2D(5 + index * 47.2,168,47.2,50 ));
+        this.getspriteSheetImageView().setViewport(new Rectangle2D( index * 381,0,370,381 ));
     }
-
     //jump + shoot method
 
     //update
     public void updateHero(long time){
         int index = animatedThingUpdate(time);
-        runShootHero(index);
+        runHero(index);
     }
 }
