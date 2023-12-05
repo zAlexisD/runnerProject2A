@@ -2,14 +2,14 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-//class used as a mold for the hero and its opponent
+// Class used as a mold for the hero and its opponent
 abstract class AnimatedThing {
-    //attributes
+    // Attributes
     private double x;
     private double y;
     private ImageView spriteSheetImageView;
     private int attitude;
-    //variables needed to display animation
+    // Variables needed to display animation
     private int index;
     private int indexMax = 4;
     private double frameDuration = 0.1;
@@ -22,6 +22,10 @@ abstract class AnimatedThing {
     private double characterSizeY = 100;
 
     public AnimatedThing(double x, double y, int attitude,String fileName) {
+        this.x = x;
+        this.y = y;
+        this.attitude = attitude;
+
         Image Sheet = new Image(fileName);
         this.spriteSheetImageView = new ImageView(Sheet);
         //First frame
@@ -32,18 +36,25 @@ abstract class AnimatedThing {
         //Adapt character size on screen
         spriteSheetImageView.setFitWidth(characterSizeX);
         spriteSheetImageView.setFitHeight(characterSizeY);
-
-        this.attitude = attitude;
-
     }
-    //getter
+    // Getter
     public ImageView getspriteSheetImageView() {return spriteSheetImageView;}
+    public double getX() {return x;}
 
-    //Update method with AnimatedTimer
-    public int animatedThingUpdate(long time){
-        //Calculate duration in seconds
-        double timeSeconds = time / 1000000000.0;
-        //Update index by duration
+    //  Set the x position method
+    public void setX(double x) {
+        this.x = x;
+    }
+    // Set the y position method
+    public void setY(double y) {
+        this.y = y;
+    }
+
+    // Update method with AnimatedTimer
+    public int animatedThingUpdate(double time){
+        // Calculate duration in seconds
+        double timeSeconds = time * 1e6;
+        // Update index by duration
         index = (int) (timeSeconds / frameDuration) % indexMax;
         return index;
     }

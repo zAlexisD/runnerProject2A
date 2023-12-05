@@ -43,8 +43,8 @@ public class HelloWorld extends Application {
         //Set timer for Animation
         AnimationTimer timer = new AnimationTimer() {
             @Override
-            public void handle(long time) {
-
+            public void handle(long initialTime) {
+                double time = initialTime / 1e15;
                 theScene.gameSceneUpdate(time);
             }
         };

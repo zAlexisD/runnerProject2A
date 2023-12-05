@@ -1,21 +1,21 @@
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-//Static class to display static element (background or number of life for example)
+// Static class to display static element (background or number of life for example)
 public class StaticThing {
-    //attributes
+    // Attributes
     private double sizeX;
     private double sizeY;
     private ImageView imageView;
-    //constructor
+    // Constructor
     // String filename to point to the Background
     public StaticThing(double sizeX, double sizeY, String fileName) {
         Image backgroundImage = new Image(fileName);
         this.imageView = new ImageView(backgroundImage);
-        //set screen size to fit image in it
+        // Set screen size to fit image in it
         imageView.setFitWidth(sizeX);
         imageView.setFitHeight(sizeY);
     }
-    //getter
+    // Getter
     public ImageView getImageView() {return imageView;}
 }

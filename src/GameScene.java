@@ -4,40 +4,40 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 
+import java.awt.*;
+
 public class GameScene extends Scene {
-    //take 3 attributes : two int for the screen size and a camera
+    // Take 3 attributes : two int for the screen size and a camera
     private double gameSceneLength;
     private double gameSceneHeight;
     private Camera gameCamera;
-    //StaticThings
+    // StaticThings
     private StaticThing backgroundLeft;
     private StaticThing backgroundRight;
     private StaticThing numberOfLives;
     private Hero theHero;
-    //variables for Left and Right
+    // Variables for Left and Right
     private double backgroundLenght = 600;
     private double backgroundHeight = 400;
-    private String bckgroundPath = "file:img/desert.png";
-    //variables for hearts
+    private String backgroundPath = "file:img/desert.png";
+    // Variables for hearts
     private double heartsBoxLenght = 300;
     private double heartsBoxHeight = 60;
     private String heartsPath = "file:img/hearts.png";
-    //variables for Hero
-    private double heroX = 50;
+    // Variables for Hero
+    private double heroX = 75;
     private double heroY = 260;
     private int attitude = 0;
     private String heroPath = "file:img/padoru.png";
 
-    //constructor
+    // Constructor
     public GameScene(Pane parent, double gameSceneLength, double gameSceneHeight, Camera gameCamera) {
         super(parent, gameSceneLength, gameSceneHeight);
         this.gameCamera = gameCamera;
 
-
-
         //instance of 2 StaticThings to display background (left and right) on the Scene
-        this.backgroundLeft = new StaticThing(backgroundLenght,backgroundHeight,bckgroundPath);
-        this.backgroundRight = new StaticThing(backgroundLenght,backgroundHeight,bckgroundPath);
+        this.backgroundLeft = new StaticThing(backgroundLenght,backgroundHeight,backgroundPath);
+        this.backgroundRight = new StaticThing(backgroundLenght,backgroundHeight,backgroundPath);
 
         //StaticThing instance to display HP hearts on the Scene
         this.numberOfLives = new StaticThing(heartsBoxLenght,heartsBoxHeight,heartsPath);
@@ -50,14 +50,14 @@ public class GameScene extends Scene {
         parent.getChildren().addAll(numberOfLives.getImageView(), theHero.getspriteSheetImageView());
     }
 
-    //Getter
+    // Getter
     public Camera getGameCamera() {
         return gameCamera;
     }
 
 
 
-    //Update method for HP
+    // Update method for HP
     public void updateHearts(int lostHP){
         if (lostHP>=5){lostHP=4;}
         this.numberOfLives.getImageView().setViewport(new Rectangle2D(0,60*lostHP,300,60));
@@ -68,19 +68,27 @@ public class GameScene extends Scene {
         this.numberOfLives.getImageView().setY(0);
     }
 
-    //Render method to modify every position on the Scene according to camera
+    // Render method to modify every position on the Scene according to camera
     public void render(){
-        double newOriginX = this.gameCamera.getX();
+        // No changes on y-axis
+        double newCameraX = this.gameCamera.getX();
 
-        this.backgroundRight.getImageView().setX(getWidth()/2-newOriginX);
-        this.backgroundLeft.getImageView().setX(-getWidth()/2-newOriginX);
+        this.backgroundRight.getImageView().setX(getWidth()/2-newCameraX);
+        this.backgroundLeft.getImageView().setX(-getWidth()/2-newCameraX);
+    }
+    // Background update method
+    public void backgroundUpdate(Pane pane){
+        if (gameCamera.getX()>300){
 
+        }
     }
 
-    //Update method with AnimatedTimer
-    public void gameSceneUpdate(long time){
-        theHero.updateHero(time);
-        gameCamera.updateCamera(time);
+    // Update method with AnimatedTimer
+    public void gameSceneUpdate(double time){
+        theHero.updateHero(time,gameCamera.getX());
+        gameCamera.updateCamera(time,theHero.getX());
+        theHero.draw(gameCamera);
+        render();
     }
 }
 
