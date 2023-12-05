@@ -40,6 +40,7 @@ abstract class AnimatedThing {
     // Getter
     public ImageView getspriteSheetImageView() {return spriteSheetImageView;}
     public double getX() {return x;}
+    public double getY() {return y;}
 
     //  Set the x position method
     public void setX(double x) {

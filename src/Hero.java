@@ -6,6 +6,12 @@ public class Hero extends AnimatedThing{
     private final double K_CONSTANT = 50;
     private final double F_CONSTANT = 5;
     private final double MASS = 1000;
+    private boolean isJumping;
+    private double jumpSpeedY;
+    private static final double JUMP_INITIAL_SPEED = -600;
+    private final double GROUND_LEVEL = 260;
+    private final double GRAVITY = 100;
+
     public Hero(double x, double y, int attitude, String fileName) {
         super(x, y, attitude, fileName);
     }
@@ -16,7 +22,32 @@ public class Hero extends AnimatedThing{
     public void runHero(int index){
         this.getspriteSheetImageView().setViewport(new Rectangle2D( index * 381,0,370,381 ));
     }
+    // Jump check for event
+    public void jump() {
+        if (!isJumping) {
+            // Only allow jumping if not currently in the air
+            jumpSpeedY = JUMP_INITIAL_SPEED;
+            isJumping = true;
+        }
+    }
     // jump method
+    public void jumpHero(double time){
+        // Handle jumping
+        if (isJumping) {
+            // Update vertical position based on jump speed
+            setY(getY() + jumpSpeedY * time);
+
+            // Update jump speed based on gravity (adjust as needed)
+            jumpSpeedY += GRAVITY * time;
+
+            // Check if the hero has landed
+            if (getY() >= GROUND_LEVEL) {
+                setY(GROUND_LEVEL);  // Snap to ground level
+                isJumping = false;
+                jumpSpeedY = 0.0;  // Reset jump speed
+            }
+        }
+    }
 
     // run + shoot method
     public void runShootHero(int index){
@@ -45,5 +76,6 @@ public class Hero extends AnimatedThing{
         getspriteSheetImageView().setX(getX());
         // Print out position for tests
         // System.out.println(getX());
+        jumpHero(time);
     }
 }

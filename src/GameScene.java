@@ -2,7 +2,10 @@ import javafx.animation.AnimationTimer;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.control.Button;
 
 import java.awt.*;
 
@@ -35,19 +38,22 @@ public class GameScene extends Scene {
         super(parent, gameSceneLength, gameSceneHeight);
         this.gameCamera = gameCamera;
 
-        //instance of 2 StaticThings to display background (left and right) on the Scene
+        // Instance of 2 StaticThings to display background (left and right) on the Scene
         this.backgroundLeft = new StaticThing(backgroundLenght,backgroundHeight,backgroundPath);
         this.backgroundRight = new StaticThing(backgroundLenght,backgroundHeight,backgroundPath);
 
-        //StaticThing instance to display HP hearts on the Scene
+        // StaticThing instance to display HP hearts on the Scene
         this.numberOfLives = new StaticThing(heartsBoxLenght,heartsBoxHeight,heartsPath);
 
-        //AnimatedThing instance to display hero
+        // AnimatedThing instance to display hero
         this.theHero = new Hero(heroX,heroY,attitude,heroPath);
 
-        //update image views
+        // Update image views
         parent.getChildren().addAll(backgroundLeft.getImageView(), backgroundRight.getImageView());
         parent.getChildren().addAll(numberOfLives.getImageView(), theHero.getspriteSheetImageView());
+
+        // Set buttons
+        setOnKeyPressed((KeyEvent event) -> handleKeyPress(event.getCode()));
     }
 
     // Getter
@@ -55,7 +61,12 @@ public class GameScene extends Scene {
         return gameCamera;
     }
 
-
+    // Handling button method
+    private void handleKeyPress(KeyCode code){
+        switch (code) {
+            case SPACE -> theHero.jump();
+        }
+    }
 
     // Update method for HP
     public void updateHearts(int lostHP){
