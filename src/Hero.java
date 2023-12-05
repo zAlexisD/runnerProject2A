@@ -1,19 +1,32 @@
 import javafx.geometry.Rectangle2D;
 
 public class Hero extends AnimatedThing{
+    // Final variables
+    private final double heroBoxLenght = 381;
+    private final double heroBoxHeigth = 381;
+    private final double heroSizeX = 94.4;
+    private final double heroSizeY = 100;
+    private double heroFrameX = 0;
+    private double heroFrameY = 0;
     // Variables + Constants
-    private double heroSpeedX = 0;
+    private final int indexMax = 4;
+    private double heroSpeedX;
     private final double K_CONSTANT = 50;
-    private final double F_CONSTANT = 5;
+    private double F_CONSTANT = 5;
     private final double MASS = 1000;
     private boolean isJumping;
     private double jumpSpeedY;
     private static final double JUMP_INITIAL_SPEED = -600;
     private final double GROUND_LEVEL = 260;
-    private final double GRAVITY = 100;
+    private final double GRAVITY = 1300;
 
-    public Hero(double x, double y, int attitude, String fileName) {
-        super(x, y, attitude, fileName);
+    public Hero(double x, double y, int attitude, String heroFileName) {
+        super(x, y, attitude, heroFileName);
+        getspriteSheetImageView().setViewport(new Rectangle2D(heroFrameX,heroFrameY,heroBoxLenght,heroBoxHeigth));
+        getspriteSheetImageView().setFitWidth(heroSizeX);
+        getspriteSheetImageView().setFitHeight(heroSizeY);
+        getspriteSheetImageView().setX(x);
+        getspriteSheetImageView().setY(y);
     }
 
     // stand method
@@ -39,7 +52,7 @@ public class Hero extends AnimatedThing{
 
             // Update jump speed based on gravity (adjust as needed)
             jumpSpeedY += GRAVITY * time;
-
+            System.out.println(getY());
             // Check if the hero has landed
             if (getY() >= GROUND_LEVEL) {
                 setY(GROUND_LEVEL);  // Snap to ground level
@@ -67,10 +80,11 @@ public class Hero extends AnimatedThing{
         double accelX = (K_CONSTANT * (getX()- cameraX) + F_CONSTANT * heroSpeedX) / MASS;
         // velocityX = accelX integration = accelX * time difference
         heroSpeedX += accelX * time;
+        F_CONSTANT += 0.0003;
         // camera X = velocityX integration = velocityX * time difference
         // heroX += heroSpeedX * time;
         // Updates
-        int index = animatedThingUpdate(time);
+        int index = animatedThingUpdate(time,indexMax);
         runHero(index);
         setX(getX() + heroSpeedX * time);
         getspriteSheetImageView().setX(getX());

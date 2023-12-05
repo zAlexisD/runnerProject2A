@@ -1,13 +1,8 @@
-import javafx.animation.AnimationTimer;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.control.Button;
-
-import java.awt.*;
 
 public class GameScene extends Scene {
     // Take 3 attributes : two int for the screen size and a camera
@@ -19,6 +14,9 @@ public class GameScene extends Scene {
     private StaticThing backgroundRight;
     private StaticThing numberOfLives;
     private Hero theHero;
+    private Foes theFoe;
+    private double staticThingX = 0;
+    private double staticThingY = 0;
     // Variables for Left and Right
     private double backgroundLenght = 600;
     private double backgroundHeight = 400;
@@ -31,7 +29,13 @@ public class GameScene extends Scene {
     private double heroX = 75;
     private double heroY = 260;
     private int attitude = 0;
-    private String heroPath = "file:img/padoru.png";
+    private double heroBoxLenght;
+    private double heroBoxHeigth;
+    private double heroSizeX;
+    private double heroSizeY;
+    private final String heroFileName = "file:img/padoru.png";
+    // Foes Variables
+    private final String foeFileName = "file:img/kurukuru.png";
 
     // Constructor
     public GameScene(Pane parent, double gameSceneLength, double gameSceneHeight, Camera gameCamera) {
@@ -39,14 +43,17 @@ public class GameScene extends Scene {
         this.gameCamera = gameCamera;
 
         // Instance of 2 StaticThings to display background (left and right) on the Scene
-        this.backgroundLeft = new StaticThing(backgroundLenght,backgroundHeight,backgroundPath);
-        this.backgroundRight = new StaticThing(backgroundLenght,backgroundHeight,backgroundPath);
+        this.backgroundLeft = new StaticThing(backgroundLenght,backgroundHeight,staticThingX,staticThingY,backgroundPath);
+        this.backgroundRight = new StaticThing(backgroundLenght,backgroundHeight,staticThingX,staticThingY,backgroundPath);
 
         // StaticThing instance to display HP hearts on the Scene
-        this.numberOfLives = new StaticThing(heartsBoxLenght,heartsBoxHeight,heartsPath);
+        this.numberOfLives = new StaticThing(heartsBoxLenght,heartsBoxHeight,staticThingX,staticThingY,heartsPath);
 
         // AnimatedThing instance to display hero
-        this.theHero = new Hero(heroX,heroY,attitude,heroPath);
+        this.theHero = new Hero(heroX,heroY,attitude,heroFileName);
+
+//        // Generate foes
+//        theFoe.generateFoe(parent,foeFileName);
 
         // Update image views
         parent.getChildren().addAll(backgroundLeft.getImageView(), backgroundRight.getImageView());
@@ -75,8 +82,6 @@ public class GameScene extends Scene {
 
         this.numberOfLives.getImageView().setFitWidth(200);
         this.numberOfLives.getImageView().setFitHeight(40);
-        this.numberOfLives.getImageView().setX(0);
-        this.numberOfLives.getImageView().setY(0);
     }
 
     // Render method to modify every position on the Scene according to camera
@@ -88,9 +93,12 @@ public class GameScene extends Scene {
         this.backgroundLeft.getImageView().setX(-getWidth()/2-newCameraX);
     }
     // Background update method
-    public void backgroundUpdate(Pane pane){
-        if (gameCamera.getX()>300){
-
+    public void backgroundUpdate(){
+        // Check if the camera is near the right edge of the backgroundRight
+        if (backgroundRight.getX() < gameCamera.getX()) {
+            // Move background to the right to create a looping effect
+            backgroundLeft.setX(backgroundLeft.getX() + backgroundLeft.getDisplayWidth());
+            backgroundRight.setX(backgroundRight.getX() + backgroundRight.getDisplayWidth());
         }
     }
 
@@ -100,6 +108,7 @@ public class GameScene extends Scene {
         gameCamera.updateCamera(time,theHero.getX());
         theHero.draw(gameCamera);
         render();
+        backgroundUpdate();
     }
 }
 

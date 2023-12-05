@@ -8,7 +8,7 @@ public class Camera {
     private double y;
 
     // Variables + Constants
-    private double cameraSpeedX = 0;
+    private double cameraSpeedX;
     private final double K_CONSTANT = 50;
     private final double F_CONSTANT = 5;
     private final double MASS = 1000;
@@ -67,6 +67,6 @@ public class Camera {
         // Set camera x position
         cameraSetX(getX() + cameraSpeedX * time);
         // Print out position for tests
-        System.out.println(cameraSpeedX);
+        System.out.println(heroX - getX());
     }
 }

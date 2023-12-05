@@ -18,7 +18,6 @@ public class HelloWorld extends Application {
         Pane pane = new Pane(root);
         Camera camera = new Camera(0,0);
         GameScene theScene = new GameScene(pane, 600, 400,camera);
-        theScene.render();
         theScene.updateHearts(0);
         primaryStage.setScene(theScene);
 

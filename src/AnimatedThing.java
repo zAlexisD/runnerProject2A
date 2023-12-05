@@ -2,6 +2,8 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.util.Objects;
+
 // Class used as a mold for the hero and its opponent
 abstract class AnimatedThing {
     // Attributes
@@ -11,31 +13,30 @@ abstract class AnimatedThing {
     private int attitude;
     // Variables needed to display animation
     private int index;
-    private int indexMax = 4;
     private double frameDuration = 0.1;
     private double frameOffset;
     private double characterFrameX = 0;
     private double characterFrameY = 0;
-    private double characterBoxLenght = 381;
-    private double CharacterBoxHeigth = 381;
-    private double characterSizeX = 94.4;
-    private double characterSizeY = 100;
+//    private double characterBoxLenght;
+//    private double characterBoxHeigth;
+//    private double characterSizeX;
+//    private double characterSizeY;
 
-    public AnimatedThing(double x, double y, int attitude,String fileName) {
+    public AnimatedThing(double x, double y, int attitude,String characterFileName) {
         this.x = x;
         this.y = y;
         this.attitude = attitude;
 
-        Image Sheet = new Image(fileName);
+        Image Sheet = new Image(characterFileName);
         this.spriteSheetImageView = new ImageView(Sheet);
-        //First frame
-        spriteSheetImageView.setViewport(new Rectangle2D(characterFrameX,characterFrameY,characterBoxLenght,CharacterBoxHeigth));
-        //Set starting position
-        spriteSheetImageView.setX(x);
-        spriteSheetImageView.setY(y);
-        //Adapt character size on screen
-        spriteSheetImageView.setFitWidth(characterSizeX);
-        spriteSheetImageView.setFitHeight(characterSizeY);
+//        // First frame
+//        spriteSheetImageView.setViewport(new Rectangle2D(characterFrameX,characterFrameY,characterBoxLenght,characterBoxHeigth));
+//        // Set starting position
+//        spriteSheetImageView.setX(x);
+//        spriteSheetImageView.setY(y);
+//        // Adapt character size on screen
+//        spriteSheetImageView.setFitWidth(characterSizeX);
+//        spriteSheetImageView.setFitHeight(characterSizeY);
     }
     // Getter
     public ImageView getspriteSheetImageView() {return spriteSheetImageView;}
@@ -45,14 +46,16 @@ abstract class AnimatedThing {
     //  Set the x position method
     public void setX(double x) {
         this.x = x;
+        spriteSheetImageView.setX(x);
     }
     // Set the y position method
     public void setY(double y) {
         this.y = y;
+        spriteSheetImageView.setY(y);
     }
 
     // Update method with AnimatedTimer
-    public int animatedThingUpdate(double time){
+    public int animatedThingUpdate(double time, int indexMax){
         // Calculate duration in seconds
         double timeSeconds = time * 1e6;
         // Update index by duration
